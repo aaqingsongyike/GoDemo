@@ -20,11 +20,19 @@ func (pc PhoneConnecter) Connect() { //实现方法2
 }
 
 func Disconnect(usb USB) {
+	/*
 	if pc, ok := usb.(PhoneConnecter1); ok { //判断是不是传进来PhoneConnection(类型判断)
 		fmt.Println("Disconnect.", pc.name)
 		return
 	}
 	fmt.Println("Unknow decive")
+	*/
+	switch v:= usb.(type){	//作用同上
+		case PhoneConnecter:
+			fmt.Println("Disconnect:",v.name)
+		default:
+			fmt.Println("Unknow decive")
+	}
 }
 func main() {
 	var a USB
