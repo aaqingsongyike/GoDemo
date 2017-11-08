@@ -1,0 +1,56 @@
+{{template "header"}}
+<title>分类 - 我的 beeblog 博客</title>
+    <script type="text/javascript">
+    function checkInput() {
+        var name = document.getElementById("name");
+        if (name.value.length == 0){
+            alert("请输入分类名称");
+            return false
+        }
+        return true
+    }
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+       <div class="container">
+          {{template "navbar" .}}
+      
+      <div>
+      <div class="container">
+        <h1>分类列表</h1>
+        <form class="form-inline" method="GET" action="/category">
+            <div class="form-group">
+                <input id="name" type="text" class="form-control" name="name" placeholder="Enter category name">
+                <input type="hidden" name="op" value="add">
+                
+            </div>
+            
+                <button name="ok" type="submit" class="btn btn-default" onclick="return checkInput();">添加</button>
+        </form>
+        <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>名称</th>
+                        <th>文章数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                {{range .Categories}}
+                <tbody>
+                        <th>{{.Id}}</th>
+                        <th>{{.Title}}</th>
+                        <th>{{.TopicCount}}</th>
+                        <th>
+                            <a href="/category?op=del&id={{.Id}}">删除</a>
+                        </th>
+                </tbody>
+                {{end}}
+            </table> 
+      </div>
+  
+      <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.js"></script>
+      <script type="text/javascript" src="/static/bootstrap-3.3.7-dist/js/bootstrap.min"></script>
+</body>
+</html>
